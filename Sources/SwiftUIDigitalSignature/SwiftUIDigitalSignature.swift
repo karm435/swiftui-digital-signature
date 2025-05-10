@@ -9,7 +9,7 @@ import SwiftUI
 import CoreGraphics
 import UIKit
 
-private let fontFamlies = ["Zapfino", "SavoyeLetPlain", "SnellRoundhand", "SnellRoundhand-Black"]
+private let fontFamlies = ["Zapfino", "SavoyeLetPlain", "SnellRoundhand", "SnellRoundhand-Black", "ClashGrotesk-Variable"]
 private let bigFontSize: CGFloat = 44
 private let placeholderText = "Signature"
 private let maxHeight: CGFloat = 160
@@ -42,32 +42,46 @@ public struct SignatureView: View {
     self.selectedTab = availableTabs.first!
   }
     
-    public var body: some View {
-        VStack {
-            HStack {
-                Button("Done", action: extractImageAndHandle)
-                Spacer()
-                Button("Cancel", action: onCancel)
-            }
-          if availableTabs.count > 1 {
-            Picker(selection: $selectedTab, label: EmptyView()) {
-                ForEach(availableTabs, id: \.self) { tab in
-                  Text(tab.title)
-                    .tag(tab)
-                }
-            }.pickerStyle(SegmentedPickerStyle())
-          }
-            signatureContent
-            Button("Clear signature", action: clear)
-            HStack {
-                if selectedTab == Tab.type {
-                    FontFamilyPicker(selection: $fontFamily)
-                }
-                ColorPickerCompat(selection: $color)
-            }
-            Spacer()
-        }.padding()
-    }
+	public var body: some View {
+		VStack {
+			HStack {
+				Button(action: onCancel) {
+					Text("Cancel")
+						.padding(4)
+				}
+					.buttonStyle(.bordered)
+					.clipShape(.capsule)
+					.font(.system(size: 19))
+				Spacer()
+				Button(action: extractImageAndHandle) {
+					Text("Done")
+						.padding(4)
+				}
+					.buttonStyle(.bordered)
+					.clipShape(.capsule)
+					.font(.system(size: 19).weight(.medium))
+			}
+			.padding(.bottom, 8)
+			if availableTabs.count > 1 {
+				Picker(selection: $selectedTab, label: EmptyView()) {
+					ForEach(availableTabs, id: \.self) { tab in
+						Text(tab.title)
+							.tag(tab)
+					}
+				}.pickerStyle(SegmentedPickerStyle())
+			}
+			signatureContent
+			Button("Clear signature", action: clear)
+			HStack {
+				if selectedTab == Tab.type {
+					FontFamilyPicker(selection: $fontFamily)
+				}
+				ColorPickerCompat(selection: $color)
+			}
+			Spacer()
+		}
+		.padding(16)
+	}
     
     private var signatureContent: some View {
         return Group {
@@ -222,7 +236,7 @@ struct FontFamilyPicker: View {
 }
 
 struct FramePreferenceKey: PreferenceKey {
-  static var defaultValue: CGRect = .zero
+	static let defaultValue: CGRect = .zero
 
   static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
     value = nextValue()
