@@ -47,19 +47,18 @@ public struct SignatureView: View {
 			HStack {
 				Button(action: onCancel) {
 					Text("Cancel")
-						.padding(4)
+						.padding(2)
 				}
 					.buttonStyle(.bordered)
 					.clipShape(.capsule)
-					.font(.system(size: 19))
 				Spacer()
 				Button(action: extractImageAndHandle) {
 					Text("Done")
-						.padding(4)
+						.padding(2)
 				}
 					.buttonStyle(.bordered)
 					.clipShape(.capsule)
-					.font(.system(size: 19).weight(.medium))
+					.fontWeight(.medium)
 			}
 			.padding(.bottom, 8)
 			if availableTabs.count > 1 {
