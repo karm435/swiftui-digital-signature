@@ -47,6 +47,7 @@ public struct SignatureView: View {
 			HStack {
 				Button(action: onCancel) {
 					Text("Cancel")
+						.font(.system(size: 16))
 						.padding(2)
 				}
 					.buttonStyle(.bordered)
@@ -54,6 +55,7 @@ public struct SignatureView: View {
 				Spacer()
 				Button(action: extractImageAndHandle) {
 					Text("Done")
+						.font(.system(size: 16))
 						.padding(2)
 				}
 					.buttonStyle(.bordered)
